@@ -19,7 +19,7 @@
 
 import java.util.*;
 
-public class median_hackerrank{
+public class MedianHackerrank{
    public static void main( String args[] ){
        Scanner in = new Scanner(System.in);
        int N;
@@ -115,7 +115,6 @@ class SmallPQComparator implements Comparator<Integer>
 {
 	@Override
 	public int compare(Integer a, Integer b) {
-		// TODO Auto-generated method stub
 		if(a > b)
 			return -1;
 		if(a < b)
