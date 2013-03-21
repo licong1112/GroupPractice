@@ -3,7 +3,7 @@
 // https://www.hackerrank.com/challenges/lego-blocks
 // 
 // =========================================
-// 1. Consider single layer first. It's a generated length-4 Fibonacci series with
+// 1. Consider single layer first. It's a generalized length-4 Fibonacci series with
 //    F(1) = 1, F(2) = 2, F(3) = 4, F(4) = 8.
 // 2. For N layers, and width-M, all possible combinations are F(M)^N.
 // 3. Let dp[i] be the optimal solution for width-i, then we have
