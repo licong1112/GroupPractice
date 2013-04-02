@@ -7,14 +7,12 @@
 // =====================================
 // Rejection sampling.
 
-
-
 public class GenerateUniformlyDistributedNumbers {
 
 	public static void main(String[] args) {
 		GenerateUniformlyDistributedNumbers test = new GenerateUniformlyDistributedNumbers();
 		
-		int n = 5;
+		int n = 3;
 		int[] array = new int[n];
 		for(int i = 0; i < n*1000; ++i)
 			array[test.gen_uniform_n(n)]++;
@@ -28,11 +26,11 @@ public class GenerateUniformlyDistributedNumbers {
 		if(n < 2) return 0;
 		if(n == 2) return myrand(); 
 		
-		int i = 1;
+		int n_temp = n;
 		int count = 0;
-		while(n >= i)
+		while(n_temp > 0)
 		{
-			i = (i << 1);
+			n_temp = (n_temp >> 1);
 			++count;
 		}
 		
