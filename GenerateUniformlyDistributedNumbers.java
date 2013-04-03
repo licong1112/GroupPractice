@@ -26,22 +26,17 @@ public class GenerateUniformlyDistributedNumbers {
 		if(n < 2) return 0;
 		if(n == 2) return myrand(); 
 		
-		int n_temp = n;
-		int count = 0;
-		while(n_temp > 0)
-		{
-			n_temp = (n_temp >> 1);
-			++count;
-		}
-		
-		int new_count = count;
-		int result = Integer.MAX_VALUE;
+		int result = n;
+		int n_temp = 0;
 		while(result >= n)
 		{
 			result = 0;
-			new_count = count;
-			while(new_count-- > 0)
+			n_temp = n;
+			while(n_temp > 0)
+			{
 				result = (result << 1) | (myrand());
+				n_temp = (n_temp >> 1);
+			}
 		}
 		return result;
 	}
