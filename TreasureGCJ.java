@@ -1,16 +1,14 @@
-package com.congli.gcj;
-
 import java.io.*;
 import java.util.*;
 
-public class Q4 {
+public class TreasureGCJ {
 
 	BufferedReader in;
 	PrintWriter out;
 	StringTokenizer tok = new StringTokenizer("");
 
 	public static void main(String[] args) {
-		Q4 test = new Q4();
+		TreasureGCJ test = new TreasureGCJ();
 		test.start();
 	}
 
@@ -22,14 +20,11 @@ public class Q4 {
 			int num_key = readInt();
 			int num_chest = readInt();
 			
-			HashMap<Integer, Integer> key_map = new HashMap<Integer, Integer>();
+			int[] key_map = new int[201];
 			for(int k = 0; k < num_key; ++k)
 			{
 				int curr_key = readInt();
-				if(key_map.containsKey(curr_key))
-					key_map.put(curr_key, key_map.get(curr_key)+1);
-				else
-					key_map.put(curr_key, 1);
+				key_map[curr_key]++;
 			}
 			
 			chest[] array = new chest[num_chest];
@@ -48,45 +43,42 @@ public class Q4 {
 			boolean[] visited = new boolean[array.length];
 			Stack<Integer> result = new Stack<Integer>();
 			
-			if(dfs(array, visited, key_map, result))
+			if(dfs(array, visited, key_map, num_key, result))
 			{
-				System.out.print("Case #" + (i+1) + ":");
+				out.print("Case #" + (i+1) + ":");
 				while(!result.isEmpty())
 				{
-					System.out.print(" " + result.pop());
+					out.print(" " + result.pop());
 				}
-				System.out.println();
+				out.println();
 			}
 			else
-				System.out.println("Case #" + (i+1) + ": IMPOSSIBLE");
+				out.println("Case #" + (i+1) + ": IMPOSSIBLE");
 		}
 	}
 	
-	public boolean dfs(chest[] array, boolean[] visited, HashMap<Integer, Integer> key_map, Stack<Integer> result)
+	public boolean dfs(chest[] array, boolean[] visited, int[] key_map, int num_key, Stack<Integer> result)
 	{
 		if(isAllVisited(visited)) return true;
-		if(key_map.isEmpty()) return false;
+		if(num_key == 0) return false;
+		if(!isValid(visited, array, key_map)) return false;
+		if(!isValid2(visited, array, key_map)) return false;
 		
 		for(int i = 0; i < array.length; ++i)
 		{
-			if(!visited[i] && key_map.containsKey(array[i].type))
+			int curr_key = array[i].type;
+			if(!visited[i] && key_map[curr_key] > 0)
 			{
-				int curr_key = array[i].type;
-				if(key_map.get(curr_key) == 1)
-					key_map.remove(curr_key);
-				else
-					key_map.put(curr_key, key_map.get(curr_key)-1);
-				
+				key_map[curr_key]--;
+				num_key--;
 				for(int k : array[i].keys)
 				{
-					if(key_map.containsKey(k))
-						key_map.put(k, key_map.get(k)+1);
-					else
-						key_map.put(k, 1);
+					key_map[k]++;
+					num_key++;
 				}
 				visited[i] = true;
 				
-				if(dfs(array, visited, key_map, result))
+				if(dfs(array, visited, key_map, num_key, result))
 				{
 					result.push(i+1);
 					return true;
@@ -95,20 +87,75 @@ public class Q4 {
 				visited[i] = false;
 				for(int k : array[i].keys)
 				{
-					if(key_map.get(k) == 1)
-						key_map.remove(k);
-					else
-						key_map.put(k, key_map.get(k)-1);
+					key_map[k]--;
+					num_key--;
 				}
 				
-				if(key_map.containsKey(curr_key))
-					key_map.put(curr_key, key_map.get(curr_key)+1);
-				else
-					key_map.put(curr_key, 1);
+				key_map[curr_key]++;
+				num_key++;
 			}
 		}
 		
 		return false;
+	}
+	
+	public boolean isValid(boolean[] visited, chest[] array, int[] map_key)
+	{
+		// For current unvisited chests, count the number of keys required
+		// for each key type. If there is one type that require more keys
+		// than existing keys, then return false.
+		
+		int[] map_temp = map_key.clone();
+		int[] map_needed = new int[map_temp.length];
+		
+		for(int i = 0; i < visited.length; ++i)
+		{
+			if(!visited[i])
+			{
+				map_needed[array[i].type]++;
+				for(int k : array[i].keys)
+					map_temp[k]++;
+			}
+		}
+		
+		for(int i = 0; i < map_temp.length; ++i)
+			if(map_temp[i] < map_needed[i])
+				return false;
+		return true;
+	}
+	
+	public boolean isValid2(boolean[] visited, chest[] array, int[] map_key)
+	{
+		// For each unvisited chest, see what type of key it needs.
+		// Look at all available keys in other unvisited chests, plus
+		// current keys in hand. If no such key exists, then return false.
+		
+		for(int i = 0; i < visited.length; ++i)
+		{
+			if(visited[i])continue;
+			if(map_key[array[i].type] > 0) continue;
+			
+			int j = 0;
+			boolean isValid = false;
+			for(j = 0; j < visited.length; ++j)
+			{
+				if(visited[j]) continue;
+				if(j == i) continue;
+				
+				for(int k : array[j].keys)
+				{
+					if(k == array[i].type)
+					{
+						isValid = true;
+						break;
+					}
+				}
+				if(isValid)
+					break;
+			}
+			if(j == visited.length) return false;
+		}
+		return true;
 	}
 	
 	public boolean isAllVisited(boolean[] visited)
@@ -121,7 +168,6 @@ public class Q4 {
 		if(v == visited.length) return true;
 		return false;
 	}
-	
 	
 	public void start()
 	{
