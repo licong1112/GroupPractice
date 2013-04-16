@@ -49,7 +49,7 @@ public class MinimalDifferenceOfTwoGroupsOfIntegers {
 		int[][] dp = new int[n][sum+1];
 		for(int i = 0; i < n; ++i)
 			Arrays.fill(dp[i], Integer.MIN_VALUE); // If dp[i][j] == Integer.MIN_VALUE, it means the first i elements cannot
-												   // be put into two groups, such the difference is j.
+												   // be put into two groups, such that the difference is j.
 		dp[0][Math.abs(array[0])] = 0; 
 		
 		int partial_sum = array[0];
