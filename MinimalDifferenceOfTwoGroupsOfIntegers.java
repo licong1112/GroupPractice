@@ -29,8 +29,6 @@
  * the given array. So we just simply give the smallest difference.
  */
 
-package com.congli.codeforces;
-
 import java.util.Arrays;
 
 public class MinimalDifferenceOfTwoGroupsOfIntegers {
