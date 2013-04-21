@@ -162,13 +162,12 @@ public class CountNumPeopleInTimeInterval {
 		
 		// Test case =========================
 		int[][] array = {{1, 3},  // 1 2 3
-						 {2, 3},  //   2 3
-						 {1, 2},  // 1 2
-						 {2, 5},  //   2 3 4 5
-						 {3, 4},  //     3 4
-						 {4, 5}}; //       4 5
-		
-		                   // total: 2 4 4 3 2
+                         {2, 3},  //   2 3
+                         {1, 2},  // 1 2
+                         {2, 5},  //   2 3 4 5
+                         {3, 4},  //     3 4
+                         {4, 5}}; //       4 5
+                           // total: 2 4 4 3 2
 		TreeNode root = new TreeNode(0, 6);
 		for(int i = 0; i < array.length; ++i)
 			root.insert(new Interval(array[i][0], array[i][1]));
