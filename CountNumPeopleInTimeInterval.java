@@ -1,3 +1,42 @@
+/**
+ * Practiced on 4/21/2013
+ * 
+ * For each people, he/she arrives at a bus station at a certain
+ * time, and leaves at another certain time. Given a set of time
+ * intervals that each person stays at the bus station, count how
+ * many people are there, at the bus station, for each time spot.
+ * 
+ * ====================================================
+ * This problem is used to practice interval tree.
+ * 
+ * For details of interval tree, check the following wikipedia page:
+ * http://en.wikipedia.org/wiki/Interval_tree
+ * 
+ * Basically, each tree node contains the following key fields:
+ * 
+ * 1. center: the key of this node
+ * 2. left: left child
+ * 3. right: right child
+ * 4. sort_left: a list that contains all intervals that overlap "center"
+ *               and these intervals are sorted by their left endpoint
+ * 5. sort_right: contains the same intervals as in sort_left, but are
+ *                sorted by their right endpoint.
+ *                
+ * When inserting an interval, if its right endpoint is less than "center",
+ * then insert it to its left node; or, if its left endpoint is larger than
+ * "center", then insert it to its right node. This procedure is performed
+ * recursively. Otherwise, this interval must overlap "center". So insert
+ * it in sort_left and sort_right.
+ * 
+ * The "center" of each node is preferred to be chosen such that the tree
+ * is well balanced. In the following implementation, every node maintains
+ * a start and an end field, so the center is the average of start and end.
+ * Thus when building the tree, we need to know the "start" and "end" of
+ * the root node.
+ * 
+ * However, what if we don't know this information?
+ */
+
 import java.util.LinkedList;
 
 class TreeNode
