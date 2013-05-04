@@ -39,7 +39,7 @@ public class r1B_1 {
 		
 		Arrays.sort(mote);
 
-		int result = 0;
+		int curr_result = 0;
 		for(int i = 0; i < mote.length; ++i)
 		{
 			int num_sum = 0;
@@ -49,16 +49,17 @@ public class r1B_1 {
 				++num_sum;
 			}
 			sum += mote[i];
-			result += num_sum;
 			
-			if(result >= mote.length-i)
+			if(num_sum >= (mote.length-i)) 
 			{
-				out.println("Case #" + case_num + ": " + result);
+				out.println("Case #" + case_num + ": " + (curr_result + (mote.length-i)));
 				return;
 			}
+			
+			curr_result += num_sum;
 		}
 		
-		out.println("Case #" + case_num + ": " + result);
+		out.println("Case #" + case_num + ": " + curr_result);
 	}
 	
 	
