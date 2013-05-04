@@ -29,7 +29,7 @@ public class r1B_1 {
 	}
 	
 	
-	public void calculate(int sum, int[] mote, int case_num)
+	public void calculate(long sum, int[] mote, int case_num)
 	{
 		if(sum == 1)
 		{
@@ -39,31 +39,26 @@ public class r1B_1 {
 		
 		Arrays.sort(mote);
 
-		int[] dp_add = new int[mote.length+1];
-		int[] dp_remove = new int[mote.length+1];
-		
-		for(int i = 1; i <= mote.length; ++i)
+		int result = 0;
+		for(int i = 0; i < mote.length; ++i)
 		{
-			if(sum > mote[i-1])
+			int num_sum = 0;
+			while(sum <= mote[i])
 			{
-				sum += mote[i-1];
-				dp_add[i] = dp_add[i-1];
-				dp_remove[i] = dp_remove[i-1];
+				sum += (sum-1);
+				++num_sum;
 			}
-			else
+			sum += mote[i];
+			result += num_sum;
+			
+			if(result >= mote.length-i)
 			{
-				int num_add = 0;
-				while(sum <= mote[i-1])
-				{
-					sum += (sum-1);
-					++num_add;
-				}
-				dp_add[i] = Math.min(dp_add[i-1], dp_remove[i-1]) + num_add;
-				dp_remove[i] = Math.min(dp_add[i-1], dp_remove[i-1]) + (mote.length+1 - i);
+				out.println("Case #" + case_num + ": " + result);
+				return;
 			}
 		}
 		
-		out.println("Case #" + case_num + ": " + Math.min(dp_add[mote.length], dp_remove[mote.length]));
+		out.println("Case #" + case_num + ": " + result);
 	}
 	
 	
