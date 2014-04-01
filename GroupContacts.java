@@ -112,14 +112,6 @@ public class GroupContacts {
 		return result;
 	}
 	
-	public int getNumRoots(int[] parent) {
-		HashSet<Integer> set = new HashSet<Integer>();
-		for (int i = 0; i < parent.length; ++i) {
-			set.add(parent[i]);
-		}
-		return set.size();
-	}
-	
 	public int find(int[] parent, int i) {
 		if (i == parent[i]) return i;
 		return find(parent, parent[i]);
