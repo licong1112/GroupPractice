@@ -18,13 +18,14 @@
  * contacts from the Contact array so that the contacts that are the same person
  * are grouped into the same group. For example, in this case, #1 #3 #4 are
  * the same person, while #2 and #5 are different.
+ * 
+ * Return List<List<Contact>>.
  */
 
 package group_practice;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
