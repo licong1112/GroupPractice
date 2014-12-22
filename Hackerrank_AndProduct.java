@@ -17,10 +17,6 @@ public class Hackerrank_AndProduct {
 	
 	public static int myMethod(int a, int b) {
 		int i = 31;
-        while ((((a >> i) & 1) == 0) && (((b >> i) & 1) == 0) && i >= 0) {
-            --i;
-        }
-        
         int result = 0;
         while (((a >> i) & 1) == ((b >> i) & 1) && i >= 0) {
         	if (((a >> i) & 1) == 1) {
