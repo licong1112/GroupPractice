@@ -2,11 +2,13 @@ package group_practice;
 
 public class Hackerrank_AndProduct {
 	public static void main(String[] args) {
-		for (int a = 2; a < 10; ++a) {
+		for (int a = 2; a < 100; ++a) {
 			for (int b = a+1; b < 100; ++b) {
 				if (groundTruth(a, b) != myMethod(a, b)) {
 					System.out.println("Wrong");
 					System.out.println(a + " " + b);
+					System.out.println(groundTruth(a, b));
+					System.out.println(myMethod(a, b));
 					return;
 				}
 			}
@@ -20,8 +22,11 @@ public class Hackerrank_AndProduct {
         }
         
         int result = 0;
-        while ((((a >> i) & 1) == 1) && (((b >> i) & 1) == 1) && i >= 0) {
-        	result |= (1 << i);
+        while (((a >> i) & 1) == ((b >> i) & 1) && i >= 0) {
+        	if (((a >> i) & 1) == 1) {
+        		result |= (1 << i);
+        	}
+        	
             --i;
         }
         return result;
